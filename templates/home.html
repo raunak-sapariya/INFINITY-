@@ -1,0 +1,967 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>INFINTY</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wallop/2.4.1/js/Wallop.min.js" integrity="sha512-uEyESZnRXVZXtfqIT1lXrqz/pmqfsVnxEnafItiKxaLRFT9MRgNL6tOViHswev/Ww4UzWN/LTtybOowljgNPDg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+    
+    </style>
+  </head>
+
+<style>
+    
+    @font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 100;
+  src: local("Roboto Thin"), local("Roboto-Thin"), url(https://fonts.gstatic.com/s/roboto/v15/Jzo62I39jc0gQRrbndN6nfesZW2xOQ-xsNqO47m55DA.ttf) format("truetype"); }
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: local("Roboto Light"), local("Roboto-Light"), url(https://fonts.gstatic.com/s/roboto/v15/Hgo13k-tfSpn0qi1SFdUfaCWcynf_cDxXwCLxiixG1c.ttf) format("truetype"); }
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Roboto"), local("Roboto-Regular"), url(https://fonts.gstatic.com/s/roboto/v15/zN7GBFwfMP4uA6AR0HCoLQ.ttf) format("truetype"); }
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: local("Roboto Medium"), local("Roboto-Medium"), url(https://fonts.gstatic.com/s/roboto/v15/RxZJdnzeo3R5zSexge8UUaCWcynf_cDxXwCLxiixG1c.ttf) format("truetype"); }
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: local("Roboto Bold"), local("Roboto-Bold"), url(https://fonts.gstatic.com/s/roboto/v15/d-6IYplOFocCacKzxwXSOKCWcynf_cDxXwCLxiixG1c.ttf) format("truetype"); }
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: 400;
+  src: local("Roboto Italic"), local("Roboto-Italic"), url(https://fonts.gstatic.com/s/roboto/v15/W4wDsBUluyw0tK3tykhXEfesZW2xOQ-xsNqO47m55DA.ttf) format("truetype"); }
+
+@font-face {
+  font-family: 'Roboto Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Roboto Mono"), local("RobotoMono-Regular"), url(https://fonts.gstatic.com/s/robotomono/v4/hMqPNLsu_dywMa4C_DEpY50EAVxt0G0biEntp43Qt6E.ttf) format("truetype"); }
+
+
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+body::-webkit-scrollbar{
+  width: 7px;
+}
+
+body::-webkit-scrollbar-thumb{
+  background:rgba(255, 255, 255, 0.493);
+  width: 3px;
+  margin-top: 2px;
+
+}
+
+body{
+    background: #000;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px 50px 20px ;
+}
+
+
+
+
+.group-links {
+    margin-top: 15px;
+    list-style: none;
+    display: flex;
+ 
+
+}
+
+.nav-logo{
+    
+    filter: brightness(0.7) invert(1);
+    mix-blend-mode: luminosity;
+    height: 40px;
+}
+.group-links li {
+    margin-right: 20px;
+}
+
+.group-links a {
+    text-decoration: none;
+    color: #626262;
+
+}
+.group-links a:hover{
+    color: #fff;
+}
+
+.header{
+    margin-top: 90px;
+    height: 80vh;
+    
+    color: white;  
+    display: flex;
+    flex-direction: column;
+align-items: center; 
+}
+
+.header h1{
+  font-size: 90px;
+  will-change: transform;
+  font-weight: 200;
+  position: relative;
+  z-index: 50; 
+  letter-spacing:  clamp(-1.75px, -0.25vw, -3.5px);
+  position: relative;
+ overflow: hidden;
+ background: black;
+  margin: 0;
+}
+
+
+.aurora {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  mix-blend-mode: darken;
+  pointer-events: none;
+}
+
+.aurora__item {
+  overflow: hidden;
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  background-color: #00c2ff;;
+  border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%;
+  filter: blur(1rem);
+  mix-blend-mode: overlay;
+}
+
+.aurora__item:nth-of-type(1) {
+  top: -50%;
+  animation: aurora-border 6s ease-in-out infinite,
+    aurora-1 12s ease-in-out infinite alternate;
+}
+
+.aurora__item:nth-of-type(2) {
+  background-color: #ffc640;
+  right: 0;
+  top: 0;
+  animation: aurora-border 4s ease-in-out infinite,
+    aurora-2 8s ease-in-out infinite alternate;
+}
+
+.aurora__item:nth-of-type(3) {
+  background-color:  #33ff8c;
+  left: 0;
+  bottom: 0;
+  animation: aurora-border 6s ease-in-out infinite,
+    aurora-3 8s ease-in-out infinite alternate;
+}
+
+.aurora__item:nth-of-type(4) {
+  background-color: #e54cff;
+  right: 0;
+  bottom: -50%;
+  animation: aurora-border 6s ease-in-out infinite,
+    aurora-4 24s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-1 {
+  0% {
+    top: 0;
+    right: 0;
+  }
+
+  50% {
+    top: 100%;
+    right: 75%;
+  }
+
+  75% {
+    top: 100%;
+    right: 25%;
+  }
+
+  100% {
+    top: 0;
+    right: 0;
+  }
+}
+
+@keyframes aurora-2 {
+  0% {
+    top: -50%;
+    left: 0%;
+  }
+
+  60% {
+    top: 100%;
+    left: 75%;
+  }
+
+  85% {
+    top: 100%;
+    left: 25%;
+  }
+
+  100% {
+    top: -50%;
+    left: 0%;
+  }
+}
+
+@keyframes aurora-3 {
+  0% {
+    bottom: 0;
+    left: 0;
+  }
+
+  40% {
+    bottom: 100%;
+    left: 75%;
+  }
+
+  65% {
+    bottom: 40%;
+    left: 50%;
+  }
+
+  100% {
+    bottom: 0;
+    left: 0;
+  }
+}
+
+@keyframes aurora-4 {
+  0% {
+    bottom: -50%;
+    right: 0;
+  }
+
+  50% {
+    bottom: 0%;
+    right: 40%;
+  }
+
+  90% {
+    bottom: 50%;
+    right: 25%;
+  }
+
+  100% {
+    bottom: -50%;
+    right: 0;
+  }
+}
+
+@keyframes aurora-border {
+  0% {
+    border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%;
+  }
+
+  25% {
+    border-radius: 47% 29% 39% 49% / 61% 19% 66% 26%;
+  }
+
+  50% {
+    border-radius: 57% 23% 47% 72% / 63% 17% 66% 33%;
+  }
+
+  75% {
+    border-radius: 28% 49% 29% 100% / 93% 20% 64% 25%;
+  }
+
+  100% {
+    border-radius: 37% 29% 27% 27% / 28% 25% 41% 37%;
+  }
+}
+
+.header > h2{
+    font-size: 60px;
+    margin-top: 5px;
+    font-weight:lighter;
+    position: relative;
+  z-index: 50; 
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 100;
+  line-height: 1.2;
+}
+
+.button-fill,.button-line{
+    margin: 40px 8px;
+    font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  position: relative;
+  display: inline-block;
+  padding: 15px 15px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 3px;
+ width: 200px;
+}
+.button-fill{
+    background:white;
+  color: black;
+
+
+}
+.button-line{
+    background:transparent;
+    border: 1px solid white;
+    color: white;
+    box-sizing: border-box;
+}
+.button-fill:hover,.button-line:hover{
+    background: rgb(5, 134, 255);
+    color: white;
+}
+.featured-courses {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.featured-courses h1{
+    font-size: 72px;
+}
+
+.featured-courses p{
+    font-size: 25px;
+    color: rgba(255, 255, 255, 0.6);
+  font-weight: 300;
+  line-height: 1.2;
+  text-align: center;
+  margin: 5px
+
+
+;
+}
+.course-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.course {
+    height: 300px;
+    margin: 20px;
+    width: 300px;
+    padding: 20px;
+    background: #222;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+}
+
+.course img {
+    max-width: 100%;
+    margin-bottom: 10px;
+    aspect-ratio: 16/9;
+}
+
+.course h3 {
+    font-size: 20px;
+    margin: 0;
+    color: #fff;
+}
+
+.course a {
+    display: inline-block;
+
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+
+/* Remove course description */
+.course p {
+    display: none;
+}
+
+
+/* Testimonials Section */
+.testimonials {
+
+    margin: 100px auto;
+	display: flex;
+    flex-direction: column;
+	align-items: center;
+	justify-content: center;
+    color: white;
+}
+
+.testimonials h1{
+    font-size: 72px;
+    color: white;
+}
+.testimonials ul {
+  padding: 0;
+  margin: 0;
+}
+
+.testimonials button {
+  background-color: transparent;
+  border: none;
+  width: 65px;
+  padding: 20px;
+  transition: opacity 200ms;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate3d(0, -50%, 0);
+  z-index: 2;
+}
+.testimonials button svg {
+  fill: #fafafa;
+}
+.testimonials button:hover, button:focus {
+  opacity: 0.6;
+}
+
+.testimonials .button--next {
+  left: auto;
+  right: 0;
+  transform: translate3d(0, -50%, 0) rotate(180deg);
+}
+
+
+
+
+.testimonial {
+    text-align: center;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 300px;
+}
+
+
+.slide__list {
+	width: calc(100vw - 40px);
+    height: 350px;
+	
+	font-family: Lato, sans-serif;
+
+	&::before,
+	&::after {
+		content: "";
+		width: 180px;
+		height: 100%;
+		display: block;
+		position: absolute;
+		top: 0;
+		z-index: 1;
+	}
+
+	&::before {
+		left: 0;
+background-color: #000;	}
+
+	&::after {
+		right: 0;
+background-color: #000;	}
+}
+
+.slide__item {
+	width: 100%;
+	height: 200px;
+	padding: 40px 65px;
+    margin-top: 80px;
+	text-align: center;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	align-content: center;
+	justify-content: center;
+
+	> * {
+		width: 100%;
+	}
+}
+
+.slide__heading,
+.slide__quote,
+.slide__cite {
+	opacity: 0;
+	animation-timing-function: var(--originalCurve);
+	width: calc(100% - 120px);
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.slide__heading {
+	--delay: 300ms;
+
+
+	text-transform: uppercase;
+	font-size: 1.2rem;
+	letter-spacing: 0.05em;
+    margin-bottom: 20px;
+}
+
+.slide__quote {
+	--delay: 420ms;
+
+	font-size: 1.1rem;
+	line-height: 1.4;
+	letter-spacing: 0.03em;
+}
+
+.slide__cite {
+	--delay: 540ms;
+    margin-top: 20px;
+    color: rgba(255, 255, 255, 0.603);
+
+	display: block;
+}
+
+
+[data-carousel] {
+	position: relative;
+}
+
+.Wallop-list {
+	position: relative;
+	overflow: hidden;
+}
+
+.Wallop-item {
+	--x1: 0.1;
+	--y1: 0.67;
+	--x2: 0.29;
+	--y2: 0.98;
+
+	--originalCurve: cubic-bezier(var(--x1), var(--y1), var(--x2), var(--y2));
+	--reversedCurve: cubic-bezier(
+		calc(1 - var(--x2)),
+		calc(1 - var(--y2)),
+		calc(1 - var(--x1)),
+		calc(1 - var(--y1))
+	);
+
+	--length: 1300ms;
+
+	visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.Wallop-item--current {
+	visibility: visible;
+	position: relative;
+
+	.slide__heading,
+	.slide__quote,
+	.slide__cite {
+		animation: slideIn var(--length) forwards var(--originalCurve);
+	}
+}
+
+.Wallop-item--showPrevious {
+	.slide__heading,
+	.slide__quote,
+	.slide__cite {
+		animation: slideOut var(--length) var(--delay) forwards reverse
+			var(--reversedCurve);
+	}
+}
+
+.Wallop-item--showNext {
+	.slide__heading,
+	.slide__quote,
+	.slide__cite {
+		animation: slideIn var(--length) var(--delay) forwards var(--originalCurve);
+	}
+}
+
+.Wallop-item--hidePrevious,
+.Wallop-item--hideNext {
+	--length: 500ms;
+	visibility: visible;
+}
+
+.Wallop-item--hidePrevious {
+	.slide__heading,
+	.slide__quote,
+	.slide__cite {
+		animation: slideOut var(--length) forwards var(--originalCurve);
+	}
+}
+
+.Wallop-item--hideNext {
+	.slide__heading,
+	.slide__quote,
+	.slide__cite {
+		animation: slideIn var(--length) forwards reverse var(--reversedCurve);
+	}
+}
+
+/* Custom keyframe animation */
+
+@keyframes slideIn {
+	0% {
+		transform: translate3d(50%, 0, 0);
+		opacity: 0;
+	}
+	100% {
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
+	}
+}
+
+@keyframes slideOut {
+	0% {
+		transform: translate3d(0, 0, 0);
+		opacity: 1;
+	}
+	100% {
+		transform: translate3d(-50%, 0, 0);
+		opacity: 0;
+	}
+}
+
+
+.supported-logos {
+            margin-top: 100px;
+            
+            display: grid;
+            grid-template-rows: auto auto;
+            gap: 4px;
+            justify-items: center;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.5;
+            color: white;
+            margin:10px;
+        }
+
+        .logos-grid {
+            display: flex;
+            gap: 1rem;
+            justify-items: center;
+            align-items: center;
+        }
+
+        .supported-logos  .logo {
+            height: 5rem;
+            border-radius: 8px;
+            opacity: 0.5;
+            box-shadow: none;
+            filter: grayscale(100%);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            opacity: 1;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            filter: grayscale(0);
+        }
+
+
+       
+
+.site-footer {
+  background-color:rgb(31, 30, 30);
+  color: #fff;
+  padding: 40px 0;
+}
+
+/* Style the container for the footer content */
+.footer-container {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+/* Style the rows in the footer */
+.footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/* Style individual footer columns */
+.footer-column {
+  flex: 0 0 calc(33.333% - 30px); /* Adjusted width for equal spacing */
+  margin: 0 15px; /* Add spacing around the columns */
+  padding: 0 15px;
+}
+
+/* Style headings in the footer */
+h6 {
+  color: #ffcc00;
+}
+
+p{
+  color: #737373;
+}
+
+/* Style the social media icons */
+.social-icons {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.social-icons li {
+  display: inline;
+  margin-right: 10px;
+}
+
+/* Style the links in the footer */
+.footer-links a {
+  text-decoration: none;
+  color:#737373;
+  transition: color 0.3s;
+}
+
+/* Change text color to blue on hover */
+.footer-links a:hover {
+  color: #0077b5;
+}
+
+
+
+</style>
+<body class="">
+<nav class="navbar">
+    <div class="logo"><a href="/"><img class="nav-logo" src="https://clipart-library.com/new_gallery/143492_infinity-sign-png.png" ></a></div>
+
+    <ul class="group-links">
+
+        <li class=""><a href="/">Home</a></li>
+        <li class=""><a href="/courses">All Courses</a></li>
+        <li class=" resources"><a href="/courses#add">Add Course</a></li>
+        {% if user.is_authenticated %}
+        <li class=" resources"><a href="/logout/">Logout</a></li>
+        {% endif %}
+
+    </ul>
+</nav>
+
+
+
+<div class="header">
+
+    <h1 >Start Your Learning Journey
+        <div class="aurora">
+            <div class="aurora__item"></div>
+            <div class="aurora__item"></div>
+            <div class="aurora__item"></div>
+            <div class="aurora__item"></div>
+          </div>
+    </h1>
+    <h2 class="second-headline ">Experience a New Way to Learn</h2>
+
+    <div class="pivot-buttons ">
+        {% if user.is_authenticated %}
+        <a class="button-fill blue" href="/courses">
+            Your Courses
+        </a>
+            {% else %}
+        <a class="button-fill blue" href="/login">
+            Login
+        </a>
+        {% endif %}
+       
+            {% if user.is_authenticated %}
+            <a class="button-line white" href="/courses#add">
+            Add Course
+            </a>
+            {% else %}
+            <a class="button-line white" href="/register">
+             Register
+            </a>
+            {% endif %}
+            
+    </div>
+
+
+</div>
+</div>
+ <div class="featured-courses">
+        <h1>Explore Our Courses</h1>
+        <p>Discover a variety of courses you can generate</p>
+        <div class="course-container">
+            
+        <div class="course">
+            <img style="height: 7.3vw;" src="data:image/jpeg;base64,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" alt="Course 1">
+            <h3>Django</h3>
+            <a class="button-fill" href="course/41607116-8fd8-47e2-a734-d1ce9b1c7211">View</a>
+        </div>
+        <div class="course">
+            <img src="https://imageio.forbes.com/specials-images/imageserve/63fcb4c67df8cc9968dc82c2/Software-source-code--Programming-code--Programming-code-on-computer-screen-/960x0.jpg?height=474&width=711&fit=bounds" alt="Course 1">
+            <h3>Java</h3>
+            <a  class="button-fill" href="course/6063052a-f026-47c9-8f48-07a0f3159a6a">View</a>
+        </div>
+        <div class="course">
+          <img src="https://medicahospitals.in/wp-content/uploads/2020/04/Immunity-and-Lifestyle.webp" alt="Course 1">
+          <h3>Lifestyle</h3>
+          <a  class="button-fill" href="course/deed9cd5-b0f8-4537-8304-5e2913644274">View</a>
+      </div>
+
+    </div>
+    </div>
+
+    <div class="testimonials">
+        <h1>Testimonials</h1>
+        <div data-carousel>
+            <ul class="slide__list Wallop-list">
+                <li class="slide__item Wallop-item Wallop-item--current">
+                    <h2 class="slide__heading">Narendra Modi</h2>
+    <blockquote>
+        
+        <p class="slide__quote">I attribute a significant part of my journey to this educational platform. It's a remarkable initiative that provided me with the knowledge and skills I needed to excel in my career. The engaging courses helped me understand various aspects of leadership and governance. Kudos to the team behind this exceptional learning portal!</p>
+        <cite class="slide__cite">Prime Minister of India</cite>
+    </blockquote>
+                </li>
+                <li class="slide__item Wallop-item">
+                    <h2 class="slide__heading">Sundar Pichai</h2>
+                    <blockquote>
+                        <p class="slide__quote">This platform played a pivotal role in my career development. The extensive selection of courses allowed me to gain a deep understanding of technology and business. I acquired valuable skills that eventually led me to become the CEO of Alphabet Inc. It's user-friendly and provides a seamless learning experience. I appreciate the efforts to make quality education accessible to all.</p>
+                        <cite class="slide__cite">CEO of Alphabet Inc. (Google)</cite>
+                    </blockquote>
+                </li>
+                <li class="slide__item Wallop-item">
+                    <h2 class="slide__heading">Tim Cook</h2>
+                    <blockquote>
+                        <p class="slide__quote">I believe in the power of learning, and this platform has been an integral part of my journey. The diverse courses it offers helped me understand technology, leadership, and innovation. I acquired the knowledge and skills necessary to lead Apple Inc. successfully. It's a fantastic resource for anyone looking to enhance their skills and explore new areas of expertise.</p>
+                        <cite class="slide__cite">CEO of Apple Inc.</cite>
+                    </blockquote>
+                </li>
+                <li class="slide__item Wallop-item">
+                    <h2 class="slide__heading">Elon Musk</h2>
+    <blockquote>
+        <p class="slide__quote">I've always been a lifelong learner, and this platform has been instrumental in my journey to success. The top-notch courses available here covered a wide spectrum of subjects, including technology, space exploration, and innovation. It's an excellent place for anyone who aspires to reach new heights in their personal and professional development. I'm genuinely impressed with the quality and accessibility.</p>
+        <cite class="slide__cite">CEO of SpaceX and Tesla, Inc.</cite>
+    </blockquote>
+                </li>
+                
+            </ul>
+            <button class="button--prev Wallop-buttonPrevious" title="previous">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27.9 50.2"><path d="M25.1 50.2L0 25.1 25.1 0l2.8 2.8L5.7 25.1l22.2 22.2z"/></svg>
+            </button>
+            <button class="button--next Wallop-buttonNext" title="next">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27.9 50.2"><path d="M25.1 50.2L0 25.1 25.1 0l2.8 2.8L5.7 25.1l22.2 22.2z"/></svg>
+            </button>
+        </div>
+    </div>
+
+   
+
+   
+</div>
+
+
+
+
+</div>
+  <!-- Site footer -->
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-row">
+      <div class="footer-column">
+        <h2 id="about">About</h2>
+        <p class="text-justify">Explore, Learn, and Grow. Your gateway to a world of knowledge and endless possibilities. Empowering learners of all ages to thrive in an ever-evolving digital landscape. Join us in the pursuit of lifelong learning.</p>
+      </div>
+
+      <div class="footer-column">
+        <h2>Language Used</h2>
+        <ul class="footer-links">
+          <li><a href="/">HTML</a></li>
+          <li><a href="/">CSS</a></li>
+          <li><a href="/">Javascript</a></li>
+          <li><a href="/">Python</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h2>Quick Links</h2>
+        <ul class="footer-links">
+          <li><a href="#about">About Us</a></li>
+          <li><a href="/courses">View Course</a></li>
+          <li><a href="/courses#add">Add Course</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+
+const slider = document.querySelector('[data-carousel]');
+const slides = [...document.querySelectorAll('.Wallop-item')]
+this.wallop = new Wallop(slider);
+
+let prev = 0
+
+const removePrevClasses = (index) => {
+	let prevClass
+	if (slides[index].classList.contains('Wallop-item--hidePrevious')) {
+		prevClass = 'Wallop-item--hidePrevious'
+	} else if (slides[index].classList.contains('Wallop-item--hideNext')) {
+		prevClass = 'Wallop-item--hideNext'
+	}
+	
+	if (prevClass) {
+		setTimeout(() => {
+		slides[index].classList.remove(prevClass)
+	}, 600)
+	}
+}
+
+const onChange = () => {
+	removePrevClasses(prev)
+	prev = this.wallop.currentItemIndex
+}
+
+this.wallop.on('change', onChange);
+
+</script>
+
+
+</body>
+
+
+</body>
+</html>

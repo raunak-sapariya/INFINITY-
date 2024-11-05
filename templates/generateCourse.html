@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{courseName}}</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: black;
+      }
+      .navbar {
+        background-color: #000000;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+      }
+
+      .logo img {
+        height: 40px;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 600px;
+        min-height: 600px;
+        margin: 2rem auto;
+        padding: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position: relative;
+          background-color: rgba(255, 255, 255, 0.1); 
+          border-radius: 10px; 
+          color: white;
+      }
+
+      .text-desc{
+        font-size: 1rem;
+        text-align: center;
+        color: #888;
+      }
+
+      .course-name{
+        color: white;
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin: 5px 0;
+      }
+
+      .text-secondary {
+        color: #777;
+        font-style: italic;
+      }
+
+      .text-secondary-light {
+        color: #aaa;
+      }
+
+      .text-medium {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: 10px 0;
+      }
+
+      .unitGenerating {
+        margin-top: 20px;
+        margin-bottom: 50px;
+
+      }
+      .button-container{
+        position: absolute;
+        bottom: 20px;
+      }
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #0073e6; /* Updated background color to blue */
+        color: #fff;
+        text-decoration: none;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin: 5px;
+      }
+      .Generate{
+        padding: 13px 20px;
+        
+      }
+
+      .button:hover {
+        background-color: #0042cf; 
+      }
+
+      @keyframes rotate {
+	0% {
+		transform: rotate(0deg);
+	}
+	50% {
+		transform: rotate(180deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes rotate2 {
+	0% {
+		transform: rotate(0deg);
+		border-top-color: white;
+	}
+	50% {
+		transform: rotate(180deg);
+		border-top-color: rgb(103, 171, 248);
+	}
+	100% {
+		transform: rotate(360deg);
+		border-top-color: white;
+	}
+}
+
+
+
+.loading p{
+  margin-bottom: 50px;
+  
+}
+
+.loader {
+	position: relative;
+	margin: 10px auto ;
+	width: 150px;
+	height: 150px;
+	display: block;
+	overflow: hidden;
+}
+
+.loader div {
+	height: 100%;
+}
+
+/* loader 1 */
+.loader1, .loader1 div {
+	border-radius: 50%;
+	padding: 8px;
+	border: 2px solid transparent;
+	animation: rotate linear 3.5s infinite;
+	border-top-color: white;
+	border-bottom-color: rgb(103, 171, 248);
+}
+
+
+
+
+
+
+.loader1 div:hover {
+	animation-play-state: paused;
+}
+
+.loader, .loader * {
+	will-change: transform;
+}
+
+
+
+.loadingBar{
+  margin-bottom: 100px;
+  width: 100%;
+}
+.loadingBar .bar{
+  position: absolute;
+ 
+  width: 96.5%;
+  height: 8px;
+  background-color: grey;
+
+}
+.loadingBar .progressBar{
+  position: absolute;
+  width: 0%;
+  height: 8px;
+  background-color: blue;
+  animation: bar 25s 1 steps(20) forwards;
+  
+}
+
+@keyframes bar {
+  0%{
+    width: 0;
+  }
+  100%{
+    width: 97%;
+  }
+  
+}
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <a href="/">
+      <div class="logo">
+
+        <img
+          src="https://logopond.com/logos/83d086afa834e039fa205045359b86d7.png"
+          alt="Logo"
+        />
+      </div>
+    </a>
+    </nav>
+    <div class="container">
+      <h1 class="course-name">{{ courseName }}</h1>
+      <div class="text-desc">
+        Generating chapters for each of your units. Look over them and then
+        click the button to confirm and continue.
+      </div>
+
+      <div class="unitGenerating">
+      
+      </div>  <div class="loading"></div>
+      <div class="loadingBar">
+       
+      </div>
+
+
+      <div class="button-container">
+        <div class="">
+          <a href="/courses" class="button" style="background-color: #ff0000;"> 
+            <span class="w-4 h-4 mr-2">Back</span>
+          </a>
+          <button
+            href="/course/"
+            class="button Generate" >
+          
+            <span>Generate</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      let unitData = [];
+    
+        const unitGenerating = document.querySelector(".unitGenerating");
+        const loadingContainer = document.querySelector(".loading");
+
+        loadingContainer.innerHTML+=`<div class='loader loader1'>
+  <div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <p>LOADING UNITS...</p>` 
+
+
+        
+        const eventSource = new EventSource("/streamUnit/");
+
+
+        eventSource.onmessage = (event) => {
+          
+          
+
+          let data = event.data;
+          data = JSON.parse(data);
+          unitData.push(data);
+          if (unitData.length===3){
+          loadingContainer.innerHTML=""
+        }
+          
+          let chapterDiv = "";
+          data.chapters.forEach((ch) => {
+            chapterDiv += `<div style="font-size: 1.2rem; font-weight: bold; color: #333; background-color: #f0f0f0; padding: 10px; margin: 10px">${ch.title}</div>`;
+          });
+
+
+          unitGenerating.innerHTML += `<div><p style="font-size: 2rem; font-weight: bold; color: #0073e6">${data.title}</p><div>${chapterDiv}</div></div>`;
+        };
+        eventSource.onerror = (error) => {
+          eventSource.close();
+        };
+
+        eventSource.addEventListener("error", (event) => {
+          eventSource.close();
+        });
+       
+      
+ 
+      const courseName = document.querySelector(".course-name").innerText;
+
+      const GenerateButton = document.querySelector(".Generate");
+      const bar=document.querySelector(".loadingBar")
+      GenerateButton.addEventListener("click", async () => {
+        if (unitData.length===3){
+          loadingContainer.innerHTML=""
+       
+        
+bar.innerHTML=` <div class="bar"></div>
+        <div class="progressBar"></div>`        
+        const res = fetch("/addToDB/", {
+        
+          method: "post",
+          body: JSON.stringify({ courseName, unitData }),
+        })
+          .then((response) => {
+            if (response.status == 400) {
+              throw new Error();
+            }
+            return response.json();
+          })
+          .then((data) => {
+            bar.children[1].style.width="97%"
+            setTimeout(()=>{
+              location.href = "/course/" + data.courseID;
+
+            },500)
+
+          })
+          .catch((error) => {
+            bar.children[1].style.width="97%"
+            setTimeout(()=>{
+              location.href = "/course/" + data.courseID;
+
+            },500)
+
+       
+            
+            console.error("Error:", error);
+
+          });
+        }
+      })
+    ;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>all courses</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wallop/2.4.1/js/Wallop.min.js" integrity="sha512-uEyESZnRXVZXtfqIT1lXrqz/pmqfsVnxEnafItiKxaLRFT9MRgNL6tOViHswev/Ww4UzWN/LTtybOowljgNPDg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+    
+    </style>
+  </head>
+
+<style>
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: black;
+  }
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px 50px 20px ;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    
+}
+
+
+
+
+.group-links {
+    margin-top: 15px;
+    list-style: none;
+    display: flex;
+ 
+
+}
+
+.nav-logo{
+    
+    filter: brightness(0.7) invert(1);
+    mix-blend-mode: luminosity;
+    height: 40px;
+}
+.group-links li {
+    margin-right: 20px;
+}
+
+.group-links a {
+    text-decoration: none;
+    color: #626262;
+
+}
+.group-links a:hover{
+    color: #fff;
+}
+
+  .course-container {
+    padding: 0 80px;
+    margin: 0 auto;
+    width: 80%;
+  }
+
+  h1 {
+    color: white;
+    font-size: 60px;
+    margin-bottom: 30px;
+  }
+  .course-grid {
+    display: grid;
+    grid-template-columns: repeat(
+      4,
+      1fr
+    ); /* Display three courses in one row */
+    grid-gap: 20px;
+  }
+
+
+  .no-courses-message {
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: rgb(24, 24, 24);
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .no-courses-message p {
+
+    font-size: 18px;
+    color: white;
+  }
+
+  .no-courses-message p::before {
+    content: "📚 "; /* You can use an appropriate icon or emoji here */
+    font-size: 24px;
+    margin-right: 10px;
+  }
+
+  /* Enhanced button styling */
+  .add-course-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s;
+    margin-bottom: 50px;
+  }
+
+  .add-course-button:hover {
+    background-color: #0056b3;
+  }
+
+  .center-button {
+    text-align: center;
+    margin-top: 20px; /* Add some spacing above the button */
+  }
+  .container {
+    position: relative;
+    font-family: sans-serif;
+  }
+
+  .container .box {
+    width: 15rem;
+    height: 15rem;
+    padding: 1px;
+    background-color: rgba(255, 255, 255, 0.074);
+    border: 1px solid rgba(255, 255, 255, 0.222);
+    backdrop-filter: blur(20px);
+    border-radius: 0.7rem;
+    transition: all ease 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .container .box .title {
+    font-size: 2rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: white;
+    text-align: center;
+    padding-top: 10px;
+  }
+
+  .container .box div img {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    aspect-ratio: 16/9;
+    border-radius: 0 0 0.7rem 0.7rem;
+    padding: 0px 3px;
+  }
+
+  .container .box div p {
+    margin: 0;
+    font-size: 0.9em;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+  }
+
+  .container .box div span {
+    font-size: 0.7rem;
+    font-weight: 300;
+  }
+
+  .container .box div span:nth-child(3) {
+    font-weight: 500;
+    margin-right: 0.2rem;
+  }
+
+  .container .box:hover {
+    box-shadow: 0px 0px 20px 1px #ffbb763f;
+    border: 1px solid rgba(255, 255, 255, 0.454);
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .addCourse {
+    display: none;
+    top: 15%;
+    left: 30%;
+    position: fixed;
+    width: 40%;
+    height: 70%;
+    background-color: rgba(0, 0, 0, 1); /* Add a semi-transparent background */
+    z-index: 999;
+    border: 2px solid white;
+  }
+  .close-button , .delete-button {
+    position: absolute;
+    top: 10px;
+    z-index:1000;
+    right: 10px;
+    font-size: 24px;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+  .delete-button{
+    left:130px;
+    color:red;
+  }
+  .heading {
+    font-size: 40px;
+    text-align: center;
+    color: white;
+    margin-bottom: 10px;
+  }
+
+  .info-text {
+    text-align: center;
+    color: white;
+    opacity: 0.6;
+    padding: 10px;
+  }
+
+  .addCourse label {
+    color: white;
+  }
+  /* Apply these styles to form elements */
+  .form-container {
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .form-label {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #333;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: transparent;
+  }
+
+  .form-input:focus {
+    border: 1px solid #007bff; /* Highlight the input field on focus */
+  }
+
+  .submit-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s; /* Smooth transition on hover */
+    cursor: pointer;
+    margin: 10px;
+  }
+
+  .submit-button:hover {
+    background-color: #0056b3;
+  }
+
+  /* Styles for the 'Add Course' button within the form */
+  .add-course-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s; /* Smooth transition on hover */
+    cursor: pointer;
+  }
+
+  .add-course-button:hover {
+    background-color: #0056b3;
+  }
+</style>
+<body class="">
+<div>
+  <nav class="navbar">
+    <div class="logo"><a href="/"><img class="nav-logo" src="https://clipart-library.com/new_gallery/143492_infinity-sign-png.png" ></a></div>
+
+    <ul class="group-links">
+
+        <li class=""><a href="/">Home</a></li>
+        <li class=""><a href="/courses">All Courses</a></li>
+        <li class=" resources"><a href="/courses#add">Add Course</a></li>
+        {% if user.is_authenticated %}
+        <li class=" resources"><a href="/logout/">Logout</a></li>
+        {% endif %}
+
+    </ul>
+</nav>
+
+<div class="course-container">
+  <h1>Your Courses:</h1>
+  {% if courses %}
+
+  <div class="course-grid">
+    {% for course in courses %}
+    <div class="container">
+      <a href="/course/{{ course.id }}">
+        <div class="box">
+          <span class="title">{{ course.name }}</span>
+
+          <div>
+            <img src="{{ course.image }}" alt="Picture of the course" />
+          </div>
+        </div>
+      </a>
+  <button onclick="handleDelete('{{ course.id }}')" class="delete-button">&#10006;</button>
+
+    </div>
+
+    {% endfor %}
+  </div>
+</div>
+{% else %}
+<div class="no-courses-message">
+  <p>No courses are available. Click the "Add Course" button to create a new course.</p>
+</div>
+{% endif %}
+
+</div>
+
+<div class="center-button">
+  <button class="add-course-button">Add Course</button>
+</div>
+
+<div class="addCourse">
+  <button class="close-button" onclick="closeModal()">&#10006;</button>
+  <h1 class="heading">Add Course</h1>
+  <div class="info-text">
+    Enter a course title or what you want to learn about. Then enter a list of
+    units, which are the specifics you want to learn. Our AI will generate a
+    course for you!
+  </div>
+  <div class="form-container">
+    <form id="course-form" class="course-form">
+      {% csrf_token %}
+      <div class="form-item">
+        <label for="title" class="form-label">Title</label>
+        <input
+          type="text"
+          name="courseName"
+          id="courseName"
+          autocomplete="off"
+          placeholder="Enter the topic of the course"
+          class="form-input"
+          required
+        />
+      </div>
+      <div class="suggestion"></div>
+
+      <div class="form-item">
+        <label for="units[0]" class="form-label">Unit 1</label>
+        <input
+          type="text"
+          id="units[0]"
+          name="unitNames"
+          placeholder="Enter subtopic of the course"
+          class="form-input"
+          required
+        />
+      </div>
+      <div class="form-item">
+        <label for="units[1]" class="form-label">Unit 2</label>
+        <input
+          type="text"
+          id="units[1]"
+          name="unitNames"
+          placeholder="Enter subtopic of the course"
+          class="form-input"
+          required
+        />
+      </div>
+      <div class="form-item">
+        <label for="units[2]" class="form-label">Unit 3</label>
+        <input
+          type="text"
+          id="units[2]"
+          name="unitNames"
+          placeholder="Enter subtopic of the course"
+          class="form-input"
+          required
+        />
+      </div>
+      <button type="submit" id="submit-button" class="submit-button">
+        <span id="submit-text">Create</span>
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("course-form");
+    const submitButton = document.getElementById("submit-button");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      window.location.href = "http://127.0.0.1:8000/course/41607116-8fd8-47e2-a734-d1ce9b1c7211/";
+      return;
+      const data = {
+        courseName: e.srcElement[1].value,
+        units: [
+          e.srcElement[2].value,
+          e.srcElement[3].value,
+          e.srcElement[4].value,
+        ],
+      };
+      
+
+       const res = await fetch("/addCourse/", {
+        method: "post",
+        headers: {
+          "X-CSRFToken": e.srcElement[0].value,
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => {
+          location.href = data.courseName;
+        }) 
+    });
+
+
+
+
+
+  function handleButton() {
+      document.querySelector(".addCourse").style.display = "block";
+      document.querySelector(".course-container").style.filter = "blur(3px)";
+      document.querySelector(".course-container").style.pointerEvents = "none";
+    }
+
+    addButton = document.querySelector(".add-course-button");
+    addButton.addEventListener("click", handleButton);
+
+    if (location.hash === "#add") {
+     
+      handleButton();
+    }
+  });
+  function closeModal() {
+    document.querySelector(".addCourse").style.display = "none";
+    document.querySelector(".course-container").style.filter = "none";
+    document.querySelector(".course-container").style.pointerEvents = "auto";
+  }
+
+
+  async function handleDelete(courseId){
+  const res = await fetch("/deleteCourse/", {
+    method: "post",
+    body: JSON.stringify({"courseId":courseId}),
+  })
+    .then((res) => {
+      location.reload()
+    }) 
+
+}
+</script>
+
+
+</body>
+
+
+</body>
+</html>

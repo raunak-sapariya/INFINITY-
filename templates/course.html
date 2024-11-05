@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{course.title}}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+        }
+        body{
+    background: #000;
+    font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px 0px 20px ;
+}
+
+
+
+
+.group-links {
+    margin-top: 15px;
+    list-style: none;
+    display: flex;
+ 
+
+}
+
+.nav-logo{
+    
+    filter: brightness(0.7) invert(1);
+    mix-blend-mode: luminosity;
+    height: 40px;
+}
+.group-links li {
+    margin-right: 20px;
+}
+
+.group-links a {
+    text-decoration: none;
+    color: #626262;
+
+}
+.group-links a:hover{
+    color: #fff;
+}
+
+        .container{
+          display: flex;
+          padding-top: 70px;
+          height: 100vh;
+          overflow-y: hidden;
+          background-color: #000000;
+
+
+        }
+
+        .sidebar {
+            background-color: black;
+            color: #fff;
+            padding: 10px;
+            height: 100vh;
+            overflow-y: scroll;
+            flex:1
+            
+        }
+        .sidebar::-webkit-scrollbar{
+          width: 1px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+          background: black;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+          background: white;
+          }
+        .title, h1{
+          border-bottom: 4px solid white;
+          padding-bottom:4px ;
+          margin-bottom: 10px ;
+        }
+        .course-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .course {
+            margin-bottom: 20px;
+        }
+
+        .course h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color:rgb(103, 171, 248)
+        }
+
+        .chapter-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .chapter {
+            margin-top: 8px;
+            cursor: pointer;
+        }
+
+        .chapter a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .chapter a:hover {
+            color: #8abff8;
+        }
+
+        .chapter-container {
+            display: flex;
+            flex:3;
+            height: 90vh;
+            overflow-y: scroll;
+          flex-direction:column;
+          align-items: center;
+          position: relative;
+              
+        }
+        .chapter-container::-webkit-scrollbar{
+            display: none;
+          
+        }
+    
+
+        .chapter-video{
+          position: absolute;
+          width: 95%;
+          height: 400px;
+        }
+        .summary-container{
+          width: 95%;
+          margin-top: 420px;  
+          padding: 10px;
+          color: white;
+          background-color: rgba(255, 255, 255, 0.1); 
+          border-radius: 10px; 
+
+
+        }
+        .summary-container p{
+          font-size:xx-large;
+          text-decoration: underline;
+          padding: 6px 0;
+          color:rgb(103, 171, 248);
+
+        }
+      
+        
+        .questions-container{
+          flex:1;
+          margin:0 10px;
+          padding: 10px;
+          color: white;
+          background-color: rgba(255, 255, 255, 0.1); 
+          border-radius: 10px; 
+
+
+        }
+        @keyframes rotate {
+	0% {
+		transform: rotate(0deg);
+	}
+	50% {
+		transform: rotate(180deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes rotate2 {
+	0% {
+		transform: rotate(0deg);
+		border-top-color: white;
+	}
+	50% {
+		transform: rotate(180deg);
+		border-top-color: rgb(103, 171, 248);
+	}
+	100% {
+		transform: rotate(360deg);
+		border-top-color: white;
+	}
+}
+
+
+
+
+
+.loader {
+	position: relative;
+	margin: 75px auto;
+	width: 150px;
+	height: 150px;
+	display: block;
+	overflow: hidden;
+}
+
+.loader div {
+	height: 100%;
+}
+
+/* loader 1 */
+.loader1, .loader1 div {
+	border-radius: 50%;
+	padding: 8px;
+	border: 2px solid transparent;
+	animation: rotate linear 3.5s infinite;
+	border-top-color: white;
+	border-bottom-color: rgb(103, 171, 248);
+}
+
+
+
+
+
+
+.loader1 div:hover {
+	animation-play-state: paused;
+}
+
+.loader, .loader * {
+	will-change: transform;
+}
+
+.questions{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.retry-button {
+    background-color: #007BFF; 
+    color: #fff; 
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  
+}
+
+.retry-button:hover {
+    background-color: #006bdd; /* Darker blue on hover */
+}
+      
+       
+    </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo"><a href="/"><img class="nav-logo" src="https://clipart-library.com/new_gallery/143492_infinity-sign-png.png" ></a></div>
+
+    <ul class="group-links">
+
+        <li class=""><a href="/">Home</a></li>
+        <li class=""><a href="/courses">All Courses</a></li>
+        <li class=" resources"><a href="/courses#add">Add Course</a></li>
+        {% if user.is_authenticated %}
+        <li class=" resources"><a href="/logout/">Logout</a></li>
+        {% endif %}
+
+    </ul>
+</nav>
+
+    <div class="container">
+    <div class="sidebar">
+        <h1 class="title">{{ course.title }}</h1>
+        <ul class="course-list">
+            {% for unit in course.units %}
+            <li class="course">
+                <h2>{{ unit.title }}</h2>
+                <ul class="chapter-list">
+                    {% for chapter in unit.chapters %}
+                    <li class="chapter">
+                        <a
+                            data-video-id="{{ chapter.videoId }}"
+                            data-chapter-id="{{ chapter.Id }}"
+                        >
+                            {{ chapter.title }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="chapter-container">
+            <iframe class="chapter-video" id="video-iframe" allowfullscreen></iframe>
+            <div class="summary-container">
+                <p>Summary</p>
+                <div class="summary"></div>
+        </div>  
+      </div>
+      <div class="questions-container">
+        <h1>Quiz</h1>
+        <div class="questions"></div>
+      </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const chapters = document.querySelectorAll(".chapter a");
+            const iframe = document.getElementById("video-iframe");
+            const summaryDiv = document.querySelector(".summary");
+            const questionContainer = document.querySelector(".questions");
+
+            let currentlySelectedChapter = null;
+
+            function loadChapterData(chapter) {
+                chapter.style.textDecoration="underline"
+
+                const videoId = chapter.getAttribute("data-video-id");
+                const chapterId = chapter.getAttribute("data-chapter-id");
+
+                iframe.src = "https://www.youtube.com/embed/" + videoId;
+
+                summaryDiv.innerHTML = `<div class='loader loader1'>
+  <div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>`
+                questionContainer.innerHTML = `<div class='loader loader1'>
+  <div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>` ;
+
+                fetch("/getVideoSummary/", {
+                
+                 
+                    method: "post",
+                    body: chapterId,
+                })
+                .then((res) => res.json())
+                .then((data) => {
+                    summaryDiv.innerText = data.summary;
+                    fetchQuestion(chapterId)
+                    
+
+                   
+                })
+                .catch((err) => console.error(err));
+            }
+
+            
+            chapters.forEach((chapter) => {
+                chapter.addEventListener("click", function (e) {
+                    currentlySelectedChapter.style.textDecoration="none"
+                    currentlySelectedChapter = this;
+                    loadChapterData(this);
+                });
+            });
+
+            if (chapters.length > 0) {
+                currentlySelectedChapter = chapters[0];
+                loadChapterData(currentlySelectedChapter);
+            }
+        });
+
+
+        const fetchQuestion=(chapterId)=>{
+          console.log(chapterId)
+          const Container = document.querySelector(".questions");
+          Container.innerHTML = `<div class='loader loader1'>
+  <div>
+    <div>
+      <div>
+        <div>
+          <div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>` ;          
+
+          fetch("/getVideoQuestions/", {
+                      method: "post",
+                        body: chapterId,
+                    })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        Container.innerHTML=(data.questions
+                        .map((question) => {
+                            const options = question.options
+                            .slice(1, question.options.length - 1)
+                            .replace(/'/g, "")
+                            .split(",") ;
+                            
+                            const answer=question.answer
+                            const optionsHTML = options.map((option) => {
+
+                                return `<input type="radio"  value="${option}" name=${answer}>
+                                <label>${option}</label><br>`;
+                            });
+                            return `
+                            <div style="padding-bottom:20px">
+                            <h2 style="padding-bottom:5px">${question.question}</h2>
+                            ${optionsHTML.join("")}
+                            <br/>
+                            Answer: 
+                            <p onclick="handleAnswer('${answer.replaceAll(" ","")}')" class=${answer.replaceAll(" ","")} style="background-color:white;cursor:pointer;display:inline-block">${answer}</p>
+                            </div>
+                            `;
+                        })
+                        .join(""));
+                    })
+                    .catch((err) => {
+                      Container.innerHTML=`
+                      <button onclick="fetchQuestion('${chapterId}')" style="margin-top:20px" class="retry-button">Retry Questions</button>
+                      `
+                    });
+
+        }
+
+  
+        const handleAnswer=(answer)=>{
+          document.querySelector("."+answer).addEventListener("click",()=>{
+            document.querySelector("."+answer).style.backgroundColor="transparent"
+          })
+
+        
+        }
+    </script>
+    </body>
+</html>
