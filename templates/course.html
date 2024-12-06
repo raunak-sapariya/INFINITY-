@@ -151,7 +151,7 @@
 
 
         }
-        .summary-container p{
+        .summary-container > p{
           font-size:xx-large;
           text-decoration: underline;
           padding: 6px 0;
@@ -363,7 +363,7 @@
                 })
                 .then((res) => res.json())
                 .then((data) => {
-                    summaryDiv.innerText = data.summary;
+                    summaryDiv.innerHTML = data.summary;
                     fetchQuestion(chapterId)
                     
 

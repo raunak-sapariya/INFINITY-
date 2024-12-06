@@ -362,6 +362,7 @@
       <div class="form-item">
         <label for="title" class="form-label">Title</label>
         <input
+         value="web"
           type="text"
           name="courseName"
           id="courseName"
@@ -376,6 +377,7 @@
       <div class="form-item">
         <label for="units[0]" class="form-label">Unit 1</label>
         <input
+          value="html"
           type="text"
           id="units[0]"
           name="unitNames"
@@ -387,6 +389,7 @@
       <div class="form-item">
         <label for="units[1]" class="form-label">Unit 2</label>
         <input
+          value="css"
           type="text"
           id="units[1]"
           name="unitNames"
@@ -398,6 +401,7 @@
       <div class="form-item">
         <label for="units[2]" class="form-label">Unit 3</label>
         <input
+        value="js"
           type="text"
           id="units[2]"
           name="unitNames"
@@ -420,8 +424,6 @@
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      window.location.href = "http://127.0.0.1:8000/course/41607116-8fd8-47e2-a734-d1ce9b1c7211/";
-      return;
       const data = {
         courseName: e.srcElement[1].value,
         units: [

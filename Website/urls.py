@@ -19,4 +19,5 @@ urlpatterns = [
 
 
 ]
+
 handler404=views.err

@@ -12,6 +12,8 @@ import time
 import json
 from uuid import uuid4
 from django.contrib.auth.decorators import login_required 
+import json
+import time
 
 courses=[]
 
@@ -71,16 +73,27 @@ def streamUnit(req):
     return redirect("/courses#add")
 
 
+def process_prompt_with_retry(prompt):
+    for attempt in range(5):
+        try:
+            result = process_prompt(prompt)
+            data = json.loads(result.replace("'",'"').replace("```json", "").replace("```", "") )
+            return data
+        except json.JSONDecodeError as e:
+            print(f"Attempt {attempt + 1} failed: line 81 {e}")
+           
+
 def streamHelper(units):
 
-    with concurrent.futures.ThreadPoolExecutor() as exc:
-        res=[exc.submit(process_prompt,prompt) for prompt in units]
-        for f in concurrent.futures.as_completed(res):
             
-            data=json.loads(f.result().replace("'",'"'))
-            title=data["title"]
-            chapters=data["chapters"]    
-            yield f"data:{json.dumps({'title': title, 'chapters': chapters})}\n\n"
+        with concurrent.futures.ThreadPoolExecutor() as exc:
+            res = [exc.submit(process_prompt_with_retry, prompt) for prompt in units]
+            for f in concurrent.futures.as_completed(res):
+                data = f.result()
+                if data is not None:
+                    title = data["title"]
+                    chapters = data["chapters"]
+                    yield f"data:{json.dumps({"title": title, "chapters": chapters})}\n\n"
         
 
 @login_required
@@ -161,9 +174,9 @@ def addCourseToDB(req):
             for chapter in unit["chapters"]:
                 newChapter=Chapter(id=uuid4(),unitId=newUnit.id,name=chapter["title"],youtubeSearchQuery=chapter["youtube_query"],unit=newUnit)
                 newChapter.save()
-                
+            
             with concurrent.futures.ThreadPoolExecutor() as exc:
-                
+                print("===================================================================================================")
                 res=[exc.submit(searchYoutube,chapter) for chapter in Chapter.objects.filter(unitId=newUnit.id)]
                 
         return JsonResponse({"courseID":course.id})
@@ -183,8 +196,9 @@ def getVideoSummary(req):
     
     
     if (chapter.summary):
+        print(chapter.videoId)
         return JsonResponse({"summary":chapter.summary})
-    
+        
     chapter.summary=getCaption(chapter.videoId)
     chapter.save()
 
@@ -195,9 +209,11 @@ def getVideoSummary(req):
 
 @csrf_exempt
 def getVideoQuestions(req):
+    print("------------------------------------------------------------------------------------------------------")
     chapterId=req.body.decode("utf-8")
     chapter=Chapter.objects.get(id=chapterId)
     questions=Question.objects.filter(chapterId=chapter.id)
+
 
     
     if (questions):
@@ -212,7 +228,8 @@ def getVideoQuestions(req):
 
         return JsonResponse({"questions":jsonQuestion})
 
-    generatedQuestions=generateQuestion(chapter.summary) 
+    generatedQuestions=generateQuestion(chapter.summary)
+    print(generatedQuestions)   
 
     if (generatedQuestions==None):
         return JsonResponse({"message":"Failed"},status=400)
@@ -237,7 +254,6 @@ def getVideoQuestions(req):
 
 @csrf_exempt
 def deleteCourse(req):
-
     if req.method == 'POST':
 
         data = json.loads(req.body)
@@ -249,8 +265,6 @@ def deleteCourse(req):
         except Course.DoesNotExist:
             return JsonResponse({'status': 'error', 'message': 'Course not found'}, status=404)
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=400)
-
- 
 
 
 def err(req,exc):

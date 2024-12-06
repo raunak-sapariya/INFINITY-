@@ -1,20 +1,19 @@
-import os
-import openai
+from openai import OpenAI
 import json
 import re
 
-openai.base_url = "https://api.groq.com/openai/v1 "
-openai.api_key='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'
 
-response = openai.ChatCompletion.create(
-          temperature = .5,
-          model="llama-3.1-70b-versatile",
-          messages=[
-            {"role": "system", "content": "You are AI"},
-            {"role": "user", "content": "this is test"}
-          ]
-        )
+client = OpenAI(
+      base_url="https://api.groq.com/openai/v1",
+      api_key="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"
+  )
 
-res = response['choices'][0]['message']['content'].replace('\'', '"')
-        
-        
+response = client.chat.completions.create(
+    model="llama-3.1-70b-versatile",
+    messages=[
+        {"role": "system", "content": "You are an AI assistant."},
+        {"role": "user", "content": "dbddd"}
+    ],
+)
+
+
