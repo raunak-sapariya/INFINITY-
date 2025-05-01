@@ -11,7 +11,7 @@ client = OpenAI(
 def generateQuestion(para):
     data=""
     response = client.chat.completions.create(
-        model="llama-3.1-70b-versatile",
+        model="llama-3.3-70b-versatile",
         messages=[
             {"role": "system", "content": '''Generate one array python of 2 multiple-choice questions in strict JSON format of {question:"question related to topic,options:one array of multile options to choose from,answer:"Correct answer" '} related to the following summary: '''+ para +" make sure the output is in JSON format and is strictly in the format mentioned above and does not contain any extra spaces or characters and valid JSON format"},
             {"role": "user", "content": para},

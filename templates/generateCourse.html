@@ -2,196 +2,180 @@
 <html>
   <head>
     <title>{{courseName}}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-      :root {
-        --bg-primary: #0f0f1a;
-        --bg-secondary: #1a1a2e;
-        --text-primary: #e2e8f0;
-        --text-secondary: #a0aec0;
-        --accent-color: #4a90e2;
-        --accent-hover: #5a9bd1;
-        --gradient-primary: linear-gradient(135deg, #4a90e2, #5a9bd1);
-      }
-
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
-
       body {
-        font-family: 'Inter', Arial, sans-serif;
-        background-color: var(--bg-primary);
-        color: var(--text-primary);
-        line-height: 1.6;
+        font-family: Arial, sans-serif;
+        background-color: black;
       }
-
       .navbar {
-        background-color: var(--bg-secondary);
-        padding: 15px 5%;
-        box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+        background-color: #000000;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
       }
-
       .logo img {
-        height: 50px;
-        filter: brightness(1.2) saturate(1.5);
-        transition: transform 0.3s ease;
+        height: 40px;
       }
-
-      .logo img:hover {
-        transform: scale(1.1);
-      }
-
       .container {
-        max-width: 800px;
-        margin: 2rem auto;
-        background-color: var(--bg-secondary);
-        border-radius: 16px;
-        padding: 30px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .course-name {
-        background: var(--gradient-primary);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-size: 3rem;
-        font-weight: 700;
-        text-align: center;
-        margin-bottom: 20px;
-      }
-
-      .text-desc {
-        text-align: center;
-        color: var(--text-secondary);
-        margin-bottom: 30px;
-        font-size: 1rem;
-      }
-
-      .unitGenerating {
-        margin-bottom: 20px;
-      }
-
-      .unitGenerating > div {
-        background-color: rgba(255,255,255,0.05);
-        border-radius: 10px;
-        padding: 20px;
-        margin-bottom: 15px;
-        border: 1px solid rgba(255,255,255,0.1);
-        transition: all 0.3s ease;
-      }
-
-      .unitGenerating > div:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-      }
-
-      .unitGenerating > div > p {
-        color: var(--accent-color);
-        font-size: 1.5rem;
-        margin-bottom: 15px;
-      }
-
-      .unitGenerating div div div {
-        background-color: rgba(255,255,255,0.05);
-        color: var(--text-secondary);
-        padding: 10px;
-        margin: 5px 0;
-        border-radius: 6px;
-        font-size: 1rem;
-        transition: background-color 0.3s ease;
-      }
-
-      .unitGenerating div div div:hover {
-        background-color: rgba(255,255,255,0.1);
-      }
-
-      .loading {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 20px;
-      }
-
-      .loader {
-        width: 100px;
-        height: 100px;
-        border: 3px solid transparent;
-        border-top-color: var(--accent-color);
-        border-radius: 50%;
-        animation: spin 1.5s linear infinite;
+        max-width: 600px;
+        min-height: 600px;
+        margin: 2rem auto;
+        padding: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         position: relative;
+          background-color: rgba(255, 255, 255, 0.1); 
+          border-radius: 10px; 
+          color: white;
       }
-
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+      .text-desc{
+        font-size: 1rem;
+        text-align: center;
+        color: #888;
       }
-
-      .loading p {
-        margin-top: 15px;
-        color: var(--text-secondary);
+      .course-name{
+        color: white;
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin: 5px 0;
       }
-
-      .button-container {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
+      .text-secondary {
+        color: #777;
+        font-style: italic;
       }
-
+      .text-secondary-light {
+        color: #aaa;
+      }
+      .text-medium {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: 10px 0;
+      }
+      .unitGenerating {
+        margin-top: 20px;
+        margin-bottom: 50px;
+      }
+      .button-container{
+        position: absolute;
+        bottom: 20px;
+      }
       .button {
         display: inline-block;
-        padding: 12px 24px;
-        border-radius: 8px;
+        padding: 10px 20px;
+        background-color: #0073e6; /* Updated background color to blue */
+        color: #fff;
         text-decoration: none;
-        font-weight: 600;
-        transition: all 0.3s ease;
+        border: none;
+        border-radius: 5px;
         cursor: pointer;
-        font-size: 1rem;
+        transition: background-color 0.3s;
+        margin: 5px;
       }
-
-      .button.back {
-        background-color: #ff4d4d;
-        color: white;
-        padding: 12px 24px;
+      .Generate{
+        padding: 13px 20px;
+        
       }
-
-      .button.generate {
-        background: var(--gradient-primary);
-        color: white;
-        padding: 12px 24px;
-      }
-
       .button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        background-color: #0042cf; 
       }
-
-      .loadingBar {
-        width: 100%;
-        height: 8px;
-        background-color: rgba(255,255,255,0.1);
-        border-radius: 4px;
-        overflow: hidden;
-        margin-top: 20px;
-      }
-
-      .loadingBar .progressBar {
-        height: 100%;
-        background: var(--gradient-primary);
-        width: 0;
-        transition: width 0.5s ease;
-      }
+      @keyframes rotate {
+	0% {
+		transform: rotate(0deg);
+	}
+	50% {
+		transform: rotate(180deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+@keyframes rotate2 {
+	0% {
+		transform: rotate(0deg);
+		border-top-color: white;
+	}
+	50% {
+		transform: rotate(180deg);
+		border-top-color: rgb(103, 171, 248);
+	}
+	100% {
+		transform: rotate(360deg);
+		border-top-color: white;
+	}
+}
+.loading p{
+  margin-bottom: 50px;
+  
+}
+.loader {
+	position: relative;
+	margin: 10px auto ;
+	width: 150px;
+	height: 150px;
+	display: block;
+	overflow: hidden;
+}
+.loader div {
+	height: 100%;
+}
+/* loader 1 */
+.loader1, .loader1 div {
+	border-radius: 50%;
+	padding: 8px;
+	border: 2px solid transparent;
+	animation: rotate linear 3.5s infinite;
+	border-top-color: white;
+	border-bottom-color: rgb(103, 171, 248);
+}
+.loader1 div:hover {
+	animation-play-state: paused;
+}
+.loader, .loader * {
+	will-change: transform;
+}
+.loadingBar{
+  margin-bottom: 100px;
+  width: 100%;
+}
+.loadingBar .bar{
+  position: absolute;
+ 
+  width: 96.5%;
+  height: 8px;
+  background-color: grey;
+}
+.loadingBar .progressBar{
+  position: absolute;
+  width: 0%;
+  height: 8px;
+  background-color: blue;
+  animation: bar 25s 1 steps(20) forwards;
+  
+}
+@keyframes bar {
+  0%{
+    width: 0;
+  }
+  100%{
+    width: 97%;
+  }
+  
+}
     </style>
   </head>
   <body>
     <nav class="navbar">
       <a href="/">
       <div class="logo">
-
         <img
           src="https://logopond.com/logos/83d086afa834e039fa205045359b86d7.png"
           alt="Logo"
@@ -205,15 +189,12 @@
         Generating chapters for each of your units. Look over them and then
         click the button to confirm and continue.
       </div>
-
       <div class="unitGenerating">
       
       </div>  <div class="loading"></div>
       <div class="loadingBar">
        
       </div>
-
-
       <div class="button-container">
         <div class="">
           <a href="/courses" class="button" style="background-color: #ff0000;"> 
@@ -233,7 +214,6 @@
     
         const unitGenerating = document.querySelector(".unitGenerating");
         const loadingContainer = document.querySelector(".loading");
-
         loadingContainer.innerHTML+=`<div class='loader loader1'>
   <div>
     <div>
@@ -248,16 +228,11 @@
   </div>
   </div>
   <p>LOADING UNITS...</p>` 
-
-
         
         const eventSource = new EventSource("/streamUnit/");
-
-
         eventSource.onmessage = (event) => {
           
           
-
           let data = event.data;
           data = JSON.parse(data);
           unitData.push(data);
@@ -269,14 +244,11 @@
           data.chapters.forEach((ch) => {
             chapterDiv += `<div style="font-size: 1.2rem; font-weight: bold; color: #333; background-color: #f0f0f0; padding: 10px; margin: 10px">${ch.title}</div>`;
           });
-
-
           unitGenerating.innerHTML += `<div><p style="font-size: 2rem; font-weight: bold; color: #0073e6">${data.title}</p><div>${chapterDiv}</div></div>`;
         };
         eventSource.onerror = (error) => {
           eventSource.close();
         };
-
         eventSource.addEventListener("error", (event) => {
           eventSource.close();
         });
@@ -284,7 +256,6 @@
       
  
       const courseName = document.querySelector(".course-name").innerText;
-
       const GenerateButton = document.querySelector(".Generate");
       const bar=document.querySelector(".loadingBar")
       GenerateButton.addEventListener("click", async () => {
@@ -309,21 +280,16 @@ bar.innerHTML=` <div class="bar"></div>
             bar.children[1].style.width="97%"
             setTimeout(()=>{
               location.href = "/course/" + data.courseID;
-
             },500)
-
           })
           .catch((error) => {
             bar.children[1].style.width="97%"
             setTimeout(()=>{
               location.href = "/course/" + data.courseID;
-
             },500)
-
        
             
             console.error("Error:", error);
-
           });
         }
       })

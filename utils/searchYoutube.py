@@ -42,7 +42,7 @@ def getCaption(id):
         text+=summary[i]["text"]
 
     response = client.chat.completions.create(
-        model="llama-3.1-70b-versatile",
+        model="llama-3.3-70b-versatile",
         messages=[
             {"role": "system", "content": "make it a summary in html format use proper spacing and formatting and be consistant with the style in html format and make sure the summary is in html format and is strictly in the format mentioned above and does not contain any extra spaces or characters and valid html format and make sure the summary is in html format and is strictly in the format mentioned above and does not contain any extra spaces or characters and valid html format"},
             {"role": "user", "content": text},
